@@ -7,6 +7,7 @@ export default function SearchBar({api, onSendBack}) {
     const sendToApp = () => {
       if(searchValue !==''){
         onSendBack(searchValue); // send data back
+        setSearchValue("")
       }
     
   };
@@ -17,7 +18,7 @@ export default function SearchBar({api, onSendBack}) {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         placeholder='Search for any address IP or domain' 
-        className=' text-xl bg-white w-1/3  py-3 px-8 rounded-l-xl outline-none' />
+        className=' text-xl bg-white w-9/12 sm:w-1/3  py-3 px-8 rounded-l-xl outline-none' />
         <button onClick={() => sendToApp()} 
         className=' bg-black text-white p-4 rounded-r-xl'>
             Search

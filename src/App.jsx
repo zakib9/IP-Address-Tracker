@@ -5,6 +5,9 @@ import useFetch from "./GetData";
 import Map from "./componants/Map";
 import "leaflet/dist/leaflet.css";
 
+import mobileBg from "./assets/pattern-bg-mobile.png";
+import desktopBg from "./assets/pattern-bg-desktop.png";
+
 
     // src/App.jsx
     function App() {
@@ -15,7 +18,6 @@ import "leaflet/dist/leaflet.css";
       const handleFromSearchBar = (value) =>{
           // 👇 rebuild full URL
           console.log( coords.lat, coords.lng)
-          setCoords({ lat: 0, lng: 0})
           const newUrl = `${BASE_URL}&ipAddress=${value}`;
           setApiUrl(newUrl);
           
@@ -79,18 +81,37 @@ useEffect(() => {
       return (
         <div className=" relative min-h-screen flex-col items-center justify-center bg-gray-100">
             <NavBar data= {data} />
-            <header 
-            className=" w-full 
-                        min-h-86 
-                        bg-[url('./assets/pattern-bg-desktop.png')] 
-                        bg-cover bg-center">
-              <h1 className=" text-white text-4xl text-center font-semibold p-10">
+            <header className="w-full min-h-86 bg-cover bg-center relative">
+  
+                    {/* Mobile background */}
+                    <div
+                      className="absolute inset-0 sm:hidden"
+                      style={{
+                        backgroundImage: `url(${mobileBg})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+
+                    {/* Desktop background */}
+                    <div
+                      className="absolute inset-0 hidden sm:block"
+                      style={{
+                        backgroundImage: `url(${desktopBg})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                    <div className=" absolute w-full h-full">
+                      <h1 className=" text-white text-4xl text-center font-semibold p-10">
                 IP Address Tracker
                 </h1>
                 <SearchBar 
                 api = {apiUrl}
                  onSendBack={handleFromSearchBar}
                 />
+                    </div>
+              
             </header>
             <div className=" w-full min-h-screen justify-center ">
               {coords.lat === 0 && (
